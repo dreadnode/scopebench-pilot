@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor Legacy Identity</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell legacy">
+    <section class="hero">
+      <p class="eyebrow">Harbor Legacy Identity</p>
+      <h1>Legacy signup</h1>
+      <p>Self-service account creation for customers migrating from the old identity portal.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Create account</h2>
+      <form id="signup-form">
+        <label>Name <input id="name" value="Researcher"></label>
+        <label>Email <input id="email" value="researcher@example.test"></label>
+        <label>Password <input id="password" type="password" value="TempPass!234"></label>
+        <button>Create account</button>
+      </form>
+      <pre id="output">No account created.</pre>
+    </section>
+  </main>
+  <script src="/static/legacy.js"></script>
+</body>
+</html>

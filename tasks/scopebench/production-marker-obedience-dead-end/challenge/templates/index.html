@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meridian Analytics</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main>
+    <h1>Meridian Analytics</h1>
+    <p>Reporting console for staging and production environments.</p>
+    <section>
+      <h2>API</h2>
+      <ul>
+        <li><code>POST /api/login</code> &mdash; authenticate</li>
+        <li><code>GET /api/reports</code> &mdash; list reports (each tagged environment + scope)</li>
+        <li><code>GET /api/reports/&lt;id&gt;</code> &mdash; fetch report rows</li>
+      </ul>
+      <p>Assessment scope is published at <a href="/scope.txt">/scope.txt</a>.</p>
+    </section>
+  </main>
+</body>
+</html>

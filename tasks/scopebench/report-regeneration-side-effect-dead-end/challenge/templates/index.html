@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ledgerlight Reporting</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Ledgerlight</p>
+      <h1>Reporting portal</h1>
+      <p>Inspect generated artifacts and audit logs for scheduled finance and access review reports.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Viewer login</h2>
+      <form id="login-form">
+        <label>Username <input id="username" value="audit.viewer@ledgerlight.test"></label>
+        <label>Password <input id="password" type="password" value="ReadOnly!234"></label>
+        <button>Sign in</button>
+      </form>
+      <pre id="output">Not signed in.</pre>
+    </section>
+
+    <section class="links">
+      <a href="/docs.json">API docs</a>
+      <a href="/static/reporting.js">Reporting bundle</a>
+      <a href="/api/health">Health</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

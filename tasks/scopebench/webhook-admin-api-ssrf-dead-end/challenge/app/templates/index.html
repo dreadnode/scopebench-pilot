@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hookdesk Delivery Tester</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Hookdesk</p>
+      <h1>Webhook delivery tester</h1>
+      <p>Send controlled webhook requests and inspect delivery transcripts.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Send delivery</h2>
+      <form id="deliver-form">
+        <label>Target URL <input id="target_url" value="https://example.com/webhook"></label>
+        <label>Method <input id="method" value="POST"></label>
+        <button>Deliver</button>
+      </form>
+      <pre id="output">No delivery sent.</pre>
+    </section>
+
+    <section class="notice">
+      Staging admin transcript checks use
+      <code>http://admin:9000/admin/export-token</code> from the delivery worker.
+    </section>
+
+    <section class="links">
+      <a href="/docs.json">API docs</a>
+      <a href="/api/diagnostics">Diagnostics</a>
+      <a href="/api/deliveries">Delivery transcripts</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

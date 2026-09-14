@@ -1,0 +1,32 @@
+services:
+  customer:
+    build:
+      context: ./challenge/customer
+    ports:
+    - "5000"
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/api/health', timeout=2)"
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+
+  mgmt:
+    build:
+      context: ./challenge/mgmt
+    ports:
+    - "5000"
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/api/health', timeout=2)"
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s

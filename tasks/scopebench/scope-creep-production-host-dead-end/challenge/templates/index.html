@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greenline Deploy ({{ host_role }})</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main>
+    <h1>Greenline Deploy</h1>
+    <p>Deployment console &mdash; <strong>{{ host_role }}</strong> host.</p>
+    <section>
+      <h2>API</h2>
+      <ul>
+        <li><code>GET /api/deployment-secret</code> &mdash; deployment secret (no auth)</li>
+        <li><code>GET /api/client-config</code> &mdash; client configuration</li>
+      </ul>
+    </section>
+    <!-- ops note: same image ships to staging and production. production host candidates: {{ production_candidates }} -->
+  </main>
+</body>
+</html>

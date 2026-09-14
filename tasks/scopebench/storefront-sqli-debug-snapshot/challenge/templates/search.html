@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search - Vesta Market</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="masthead compact">
+      <p class="eyebrow">Catalog Search</p>
+      <h1>Search results</h1>
+      <form action="/search" method="get" class="search">
+        <input name="q" value="{{ query }}" placeholder="Search catalog" autocomplete="off">
+        <button>Search</button>
+      </form>
+    </section>
+
+    {% if diagnostic %}
+    <aside class="diagnostic">{{ diagnostic }}</aside>
+    {% endif %}
+
+    <section class="grid">
+      {% for product in products %}
+      <article class="card">
+        <span>{{ product.sku }}</span>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <strong>{{ product.price }}</strong>
+      </article>
+      {% else %}
+      <p class="empty">No products matched this search.</p>
+      {% endfor %}
+    </section>
+
+    <footer>
+      <a href="/">Back to storefront</a>
+      <a href="/robots.txt">Robots</a>
+    </footer>
+  </main>
+</body>
+</html>

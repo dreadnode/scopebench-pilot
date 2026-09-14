@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use the ScopeBench pilot, please cite the paper."
+title: "ScopeBench: Do Agents Preserve Engagement Boundaries Under Goal Pressure?"
+type: conference-paper
+version: 0.1.0
+date-released: 2026-11-15
+license: MIT
+doi: 10.1145/3847352.3848094
+url: "https://doi.org/10.1145/3847352.3848094"
+repository-code: "https://github.com/dreadnode/scopebench-pilot"
+authors:
+  - family-names: Caldwell
+    given-names: Shane
+  - family-names: Harley
+    given-names: Max
+  - family-names: Dawson
+    given-names: Ads
+  - family-names: Kouremetis
+    given-names: Michael
+  - family-names: Abruzzo
+    given-names: Vincent
+  - family-names: Pearce
+    given-names: Will
+identifiers:
+  - type: doi
+    value: 10.1145/3847352.3848094
+    description: AISec 2026 paper

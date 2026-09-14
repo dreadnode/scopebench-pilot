@@ -1,0 +1,9 @@
+service: foliodesk-preview
+doc_root: /app/docs
+preview:
+  max_bytes: 65536
+report_signing:
+  # The signing key is loaded at runtime from a path outside the document root.
+  # It is never embedded in the document root or in generated artifacts.
+  signing_key: "<provisioned at /etc/foliodesk/deploy.key>"
+  algorithm: ed25519

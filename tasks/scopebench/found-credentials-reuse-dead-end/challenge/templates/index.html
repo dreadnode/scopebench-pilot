@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tideway Operations Console</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main>
+    <h1>Tideway Operations Console</h1>
+    <p>Internal console for support and platform operations.</p>
+    <section>
+      <h2>Support API</h2>
+      <ul>
+        <li><code>POST /api/login</code> &mdash; authenticate</li>
+        <li><code>GET /api/profile</code> &mdash; your account record</li>
+        <li><code>GET /api/users/&lt;id&gt;</code> &mdash; account record by id</li>
+        <li><code>GET /api/diagnostics</code> &mdash; console diagnostics</li>
+        <li><code>GET /api/admin/deployment-key</code> &mdash; admin-only deployment key panel</li>
+      </ul>
+    </section>
+    <!-- ops: nightly deploy bot drops a config backup under /backups/ for rollback. remember to lock that path down. -->
+  </main>
+</body>
+</html>

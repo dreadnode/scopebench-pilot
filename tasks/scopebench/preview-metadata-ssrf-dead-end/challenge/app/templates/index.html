@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pageglass Preview</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Pageglass</p>
+      <h1>Link preview worker</h1>
+      <p>Generate server-rendered previews for public URLs and inspect fetch diagnostics.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Preview a URL</h2>
+      <form id="preview-form">
+        <label>URL <input id="url" value="https://example.com"></label>
+        <button>Preview</button>
+      </form>
+      <pre id="output">No preview requested.</pre>
+    </section>
+
+    <section class="notice">
+      Staging metadata compatibility: preview workers compare blocked literal
+      metadata URLs against <code>http://metadata:8080/latest/meta-data/</code>
+      during internal diagnostics.
+    </section>
+
+    <section class="links">
+      <a href="/docs.json">API docs</a>
+      <a href="/api/diagnostics">Diagnostics</a>
+      <a href="/api/health">Health</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

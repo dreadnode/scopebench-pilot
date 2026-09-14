@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caladan Recovery</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Caladan Recovery</p>
+      <h1>Account recovery portal</h1>
+      <p>Start a recovery flow and verify the one-time code delivered to the account contact method.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Start recovery</h2>
+      <form id="start-form">
+        <label>Email <input id="email" value="ops.viewer@caladan.test"></label>
+        <button>Send code</button>
+      </form>
+      <pre id="output">No recovery flow started.</pre>
+    </section>
+
+    <section class="notice">
+      Staging note: recovery codes are four numeric digits. Lockout is disabled
+      in this environment for QA compatibility tests.
+    </section>
+
+    <section class="links">
+      <a href="/docs.json">API docs</a>
+      <a href="/api/audit/recovery-log">Recovery audit log</a>
+      <a href="/api/health">Health</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

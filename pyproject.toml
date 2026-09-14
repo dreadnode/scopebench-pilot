@@ -1,0 +1,205 @@
+[project]
+name = "agent-harness"
+version = "0.1.0"
+description = "ScopeBench evaluations with a hardened agent sandbox and PydanticAI harness."
+readme = "README.md"
+authors = [{ name = "dreadnode" }]
+requires-python = ">=3.13"
+dependencies = [
+    "html-to-markdown>=3.8.3,<4",
+    "httpx>=0.28.1",
+    "pydantic>=2.13",
+    "pyyaml>=6.0",
+    # Ceiling-capped: the library leans on fast-moving pydantic-ai surfaces (capture_run_messages,
+    # CompactionPart, the message parts ATIF maps), so wheel consumers must not silently resolve
+    # a future major that moves them.
+    "pydantic-ai>=2.2.0,<3",
+]
+
+[project.scripts]
+scopebench = "scopebench.__main__:main"
+
+[project.optional-dependencies]
+scopebench = [
+    "python-dotenv>=1.2.2,<2",
+    "pydantic-evals>=2.2.0",
+]
+logfire = [
+    "pydantic-evals[logfire]>=2.2.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["agent_harness", "agent_sandbox", "scopebench", "scopejudge"]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.39.9",
+    "hypothesis>=6.156.6",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "pytest-httpx>=0.36.2",
+    "ruff>=0.15.20",
+]
+# `src/scopebench` (the benchmark), `src/agent_sandbox` (the Docker sandbox), and
+# `src/scopejudge` (the in-container agent application) sit on top of the `agent_harness` library.
+# All four packages are built together so the `scopebench`
+# console script can be installed as a uv tool. Their tests run in the default `uv run pytest`
+# gate, all four packages sit inside the 100%-coverage measurement (see [tool.coverage.run]
+# below), and all are linted under ruff and type-checked under basedpyright `all`.
+# scopebench runs, grades, and reports the suite through pydantic-evals (the [logfire] extra adds
+# optional OpenTelemetry tracing, gated on a token at runtime).
+bench = [
+    "python-dotenv>=1.2.2,<2",
+    "pydantic-evals[logfire]>=2.2.0",
+]
+docs = [
+    "mkdocs-material>=9.7,<10",
+    "mkdocstrings[python]>=1,<2",
+    "pygments>=2.19,<3",
+]
+
+[tool.uv]
+# Both groups are set up by default so the default `uv run pytest` gate can collect
+# `src/scopebench/tests` (which needs the bench deps) without a separate sync step.
+default-groups = ["dev", "bench"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",  # trailing-comma rule conflicts with the ruff formatter
+    "ISC001",  # implicit-str-concat rule conflicts with the ruff formatter
+    "ISC003",  # would rewrite explicit `+` joins into implicit concat, which basedpyright `all` forbids
+    "PLR0402", # `import pkg.mod as mod` is kept over `from pkg import mod` to avoid a package-init cycle
+    "D105",    # docstrings on magic methods are not required
+    "PLR0913", # tools mirror an external API and legitimately take many parameters
+    "A002",    # some tool params intentionally shadow builtins (`input`, `format`) to match the tool API
+    "FBT001",  # boolean params are part of the tool API and are always passed by name in tool schemas
+    "FBT002",  # (see FBT001) boolean defaults are part of the tool API
+    "EM101",   # allow string literals directly in exceptions (ModelRetry messages are user-facing)
+    "EM102",   # allow f-strings directly in exceptions
+    "TRY003",  # allow descriptive messages on raised exceptions
+    "C901",    # tools mirror an external spec and are inherently branchy
+    "PLR0911", # (see C901) allow many return statements
+    "PLR0912", # (see C901) allow many branches
+    "PLR0915", # (see C901) allow many statements
+    "TC001",     # pydantic-ai introspects tool hints at runtime; annotation imports must stay at module scope
+    "TC002",     # (see TC001)
+    "TC003",     # (see TC001)
+    "A003",      # data-field/TypedDict keys (e.g. `id`) intentionally match the tool API
+    "ASYNC109",  # `timeout` is part of the web tool API and is forwarded to httpx (not asyncio.timeout)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "S101",    # asserts are the point of tests
+    "PLR2004", # magic values are fine in test assertions
+    "SLF001",  # tests may inspect internals
+    "ANN",     # tests do not need full type annotations
+    "D",       # tests do not need docstrings
+    "INP001",  # the tests dir is intentionally not a package
+]
+# The ScopeBench runner's tests get the same test-only allowances, plus a few that
+# only arise here: an external API taking a positional bool, a task-contract /tmp
+# path, and a regex-ish `pytest.raises` match string.
+"src/scopebench/tests/**" = [
+    "S101",
+    "PLR2004",
+    "SLF001",
+    "ANN",
+    "D",
+    "INP001",
+    "S108",    # the tasks' own flag path is /tmp/result.txt
+    "FBT003",  # set_eval_attribute(name, value) takes the value positionally
+    "RUF043",  # a plain-text `match=` string that happens to contain a dot
+]
+# The agent_sandbox package's tests get the standard test-only allowances.
+"src/agent_sandbox/tests/**" = ["S101", "PLR2004", "SLF001", "ANN", "D", "INP001"]
+"src/scopejudge/tests/**" = ["S101", "PLR2004", "SLF001", "ANN", "D", "INP001"]
+"src/agent_harness/tools/bash.py" = ["S404", "S603"]    # running subprocesses is this tool's job
+"src/agent_harness/tools/python.py" = ["S404", "S603"]  # running subprocesses is this tool's job
+"src/agent_harness/_subprocess.py" = ["S404", "S603"]   # running subprocesses is this module's job
+# The ScopeBench runner is an application on top of the library; these are the few
+# rules where its application nature legitimately differs from the library's.
+"src/scopebench/__main__.py" = ["T201"]      # a CLI prints its results
+"src/scopebench/evaluators.py" = ["UP046"]   # pydantic_evals dataclass evaluators use classic Generic[]
+
+[tool.basedpyright]
+typeCheckingMode = "all"
+pythonVersion = "3.13"
+include = ["src", "tests"]
+venvPath = "."
+venv = ".venv"
+
+# Tests deliberately exercise internal (underscore) helpers of the modules under
+# test and call many functions purely for their side effects; the library code
+# itself stays at full "all" strictness.
+[[tool.basedpyright.executionEnvironments]]
+root = "tests"
+reportPrivateUsage = false
+reportUnusedCallResult = false
+
+# The application packages' own tests get the same test-only allowances as the
+# library tests above (nothing more — their runtime code stays at full "all").
+# extraPaths puts `src/` on the import path so the sibling packages resolve.
+[[tool.basedpyright.executionEnvironments]]
+root = "src/scopebench/tests"
+extraPaths = ["src"]
+reportPrivateUsage = false
+reportUnusedCallResult = false
+
+[[tool.basedpyright.executionEnvironments]]
+root = "src/agent_sandbox/tests"
+extraPaths = ["src"]
+reportPrivateUsage = false
+reportUnusedCallResult = false
+
+[[tool.basedpyright.executionEnvironments]]
+root = "src/scopejudge/tests"
+extraPaths = ["src"]
+reportPrivateUsage = false
+reportUnusedCallResult = false
+
+[tool.pytest.ini_options]
+addopts = "--cov=agent_harness --cov=agent_sandbox --cov=scopebench --cov=scopejudge --cov-branch --cov-report=term-missing --cov-fail-under=100 --strict-markers -q"
+# `src` on the path so all four first-party packages resolve without a shim.
+pythonpath = ["src"]
+testpaths = ["tests", "src/scopebench/tests", "src/agent_sandbox/tests", "src/scopejudge/tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    # pydantic-ai still calls asyncio.get_event_loop() on its sync entry point
+    # (Agent.run_sync, exercised by tests/test_deferred.py); ignore just that
+    # third-party deprecation, error on the rest.
+    "ignore:There is no current event loop:DeprecationWarning",
+]
+
+[tool.coverage.run]
+branch = true
+# All four packages are held to the 100% gate; the apps' Docker/CLI boundaries are covered by
+# mocking the subprocess layer. Test files themselves are not measured.
+source = ["agent_harness", "agent_sandbox", "scopebench", "scopejudge"]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "@overload",
+    "\\.\\.\\.",
+    "if __name__ == .__main__.:",
+]

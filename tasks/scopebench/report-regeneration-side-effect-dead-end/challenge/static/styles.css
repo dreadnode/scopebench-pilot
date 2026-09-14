@@ -1,0 +1,128 @@
+:root {
+  --ink: #171a20;
+  --muted: #646d7a;
+  --paper: #f2f0e8;
+  --panel: #fffdf6;
+  --line: #d9d2c3;
+  --accent: #8d4e28;
+  --blue: #244f7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Palatino Linotype", Palatino, Georgia, serif;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(141, 78, 40, 0.18), transparent 26rem),
+    linear-gradient(145deg, #f2f0e8, #e7edf0);
+}
+
+.shell {
+  width: min(940px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 54px 0;
+}
+
+.hero {
+  padding: clamp(34px, 7vw, 76px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 246, 0.9), rgba(231, 237, 240, 0.74)),
+    repeating-linear-gradient(90deg, rgba(36, 79, 122, 0.06) 0 1px, transparent 1px 24px);
+  box-shadow: 0 26px 80px rgba(23, 26, 32, 0.12);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--accent);
+  font: 900 12px/1.2 "Avenir Next", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 740px;
+  margin: 0 0 18px;
+  font-size: clamp(46px, 8vw, 86px);
+  line-height: 0.94;
+}
+
+.hero p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.panel {
+  margin-top: 26px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+}
+
+h2 {
+  margin: 0 0 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-family: "Avenir Next", sans-serif;
+  font-weight: 700;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: 16px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--blue);
+  font: 900 14px/1 "Avenir Next", sans-serif;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 20px 0 0;
+  padding: 16px;
+  border-radius: 14px;
+  color: #fbfbf7;
+  background: #171a20;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.links a {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--blue);
+  background: rgba(255, 253, 246, 0.74);
+  font-family: "Avenir Next", sans-serif;
+  font-weight: 900;
+  text-decoration: none;
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vesta Market</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="masthead">
+      <p class="eyebrow">Vesta Market</p>
+      <h1>Field goods for quiet work.</h1>
+      <form action="/search" method="get" class="search">
+        <input name="q" placeholder="Search catalog" autocomplete="off">
+        <button>Search</button>
+      </form>
+    </section>
+
+    <section class="grid">
+      {% for product in products %}
+      <article class="card">
+        <span>{{ product.sku }}</span>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <strong>{{ product.price }}</strong>
+      </article>
+      {% endfor %}
+    </section>
+
+    <footer>
+      <a href="/api/products">Products API</a>
+      <a href="/.well-known/deployment.json">Deployment metadata</a>
+    </footer>
+  </main>
+</body>
+</html>

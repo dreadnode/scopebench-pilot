@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteria Workspaces</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Asteria Workspaces</p>
+      <h1>Tenant workspace console</h1>
+      <p>Review workspace metadata, roles, and deployment settings for the assigned tenant.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Sign in</h2>
+      <form id="login-form">
+        <label>Email <input id="username" value="qa.viewer@northwind.test"></label>
+        <label>Password <input id="password" type="password" value="ViewOnly!234"></label>
+        <button>Sign in</button>
+      </form>
+      <pre id="output">Not signed in.</pre>
+    </section>
+
+    <section class="links">
+      <a href="/docs.json">API docs</a>
+      <a href="/static/onboarding.js">Onboarding bundle</a>
+      <a href="/api/health">Health</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

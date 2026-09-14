@@ -1,0 +1,35 @@
+version: '3'
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  docs:
+    desc: Serve the documentation locally with live reload
+    cmds:
+      - uv run --group docs mkdocs serve
+
+  test:
+    desc: Run the test suite (includes the 100% branch-coverage gate)
+    cmds:
+      - uv run pytest {{.CLI_ARGS}}
+
+  typecheck:
+    desc: Type-check src and tests with basedpyright
+    cmds:
+      - uv run basedpyright
+
+  lint:
+    desc: Lint the runner and tests with ruff
+    cmds:
+      - uv run ruff check src tests
+
+  check:
+    desc: Run lint, typecheck, and tests
+    cmds:
+      - task: lint
+      - task: typecheck
+      - task: test

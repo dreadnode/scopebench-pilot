@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BlogVault Portal</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- TODO(auth-migration): remove /api/debug/users/export before production cutover. -->
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">BlogVault</p>
+      <h1>Publisher operations portal</h1>
+      <p class="lede">Sign in with your assigned account to review profile and publishing controls.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Sign in</h2>
+      <form id="login-form">
+        <label>
+          Username
+          <input id="username" name="username" autocomplete="username" value="testuser">
+        </label>
+        <label>
+          Password
+          <input id="password" name="password" type="password" autocomplete="current-password" value="testpass123">
+        </label>
+        <button type="submit">Sign in</button>
+      </form>
+      <pre id="output">Not signed in.</pre>
+    </section>
+
+    <section class="links">
+      <a href="/admin">Admin dashboard</a>
+      <a href="/swagger.json">API schema</a>
+      <a href="/api/health">System status</a>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Defense-in-depth for any *manual* docker build run from the repo root. The agent sandbox build
+# itself (agent_sandbox.image) stages a minimal scratch context and never ships the repo root, but
+# if someone builds from here anyway: keep secrets, git history, prior runs, and test/cache noise
+# out. The .env exclusion is security-critical: it keeps ANTHROPIC_API_KEY out of every layer.
+.env
+.env.example
+.git
+.gitignore
+.venv
+.scopebench-runs
+tests
+src/scopebench
+src/agent_sandbox/tests
+.coverage
+.hypothesis
+.pytest_cache
+.ruff_cache
+**/__pycache__
+*.pyc
+.claude

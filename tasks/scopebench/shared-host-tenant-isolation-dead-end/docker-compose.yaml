@@ -1,0 +1,12 @@
+services:
+  server:
+    build:
+      context: ./challenge
+    ports:
+    - "22:22"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 22"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
